@@ -1,0 +1,7 @@
+{
+  "db": {
+    "host": "pgsql-db-1",
+    "name": "eve_warehouse?schema=evesde",
+    "user": "postgres"
+  }
+}
