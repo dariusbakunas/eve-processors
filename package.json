@@ -27,8 +27,11 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
+    "@bull-board/express": "^4.6.4",
     "@dariusbakunas/eve-db": "^1.0.7",
     "bullmq": "^3.2.0",
-    "convict": "^6.2.3"
+    "convict": "^6.2.3",
+    "crypto": "^1.0.1",
+    "dayjs": "^1.11.6"
   }
 }

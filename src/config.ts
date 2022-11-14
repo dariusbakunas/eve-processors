@@ -58,6 +58,13 @@ const config = convict({
     default: 'development',
     env: 'NODE_ENV'
   },
+  redis: {
+    host: {
+      doc: 'Redis host name/IP',
+      format: 'required-string',
+      default: ''
+    },
+  },
   db: {
     host: {
       doc: 'Database host name/IP',
@@ -79,6 +86,35 @@ const config = convict({
       format: 'secret-string',
       default: '',
       env: 'DB_PASSWORD'
+    }
+  },
+  eve: {
+    esiURL: {
+      doc: 'EVE ESI URL',
+      format: String,
+      default: 'https://esi.evetech.net/latest'
+    },
+    loginURL: {
+      doc: 'EVE login URL',
+      format: String,
+      default: 'https://login.eveonline.com'
+    },
+    clientID: {
+      doc: 'EVE client ID',
+      format: 'required-string',
+      default: ''
+    },
+    cryptSecret: {
+      doc: 'Secret used to encrypt/decrypt EVE esi tokens',
+      format: 'secret-string',
+      default: '',
+      env: 'CRYPT_SECRET'
+    },
+    clientSecret: {
+      doc: 'EVE client secret',
+      format: 'secret-string',
+      default: '',
+      env: 'EVE_CLIENT_SECRET'
     }
   },
 });

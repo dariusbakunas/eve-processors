@@ -3,5 +3,11 @@
     "host": "pgsql-db-1",
     "name": "eve_warehouse?schema=evesde",
     "user": "postgres"
+  },
+  "redis": {
+    "host": "eve-redis"
+  },
+  "eve": {
+    "clientID": "889dde8bdb8c42c6b6a2c13734ef3707"
   }
 }
