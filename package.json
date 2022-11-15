@@ -5,22 +5,28 @@
   "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "commit": "cz"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@commitlint/cli": "^17.2.0",
+    "@commitlint/config-conventional": "^17.2.0",
     "@types/milliseconds": "^0.0.30",
     "@types/node": "^18.11.9",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
+    "commitizen": "^4.2.5",
     "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
     "dotenv": "^16.0.3",
     "eslint": "^7.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-functional": "^3.0.2",
     "eslint-plugin-import": "^2.22.0",
+    "husky": "^8.0.2",
     "nodemon": "^2.0.20",
     "prettier": "^2.1.1",
     "ts-node": "^10.9.1",
@@ -29,9 +35,15 @@
   "dependencies": {
     "@bull-board/express": "^4.6.4",
     "@dariusbakunas/eve-db": "^1.0.7",
+    "@dariusbakunas/eve-esi-client": "^3.0.0",
     "bullmq": "^3.2.0",
     "convict": "^6.2.3",
     "crypto": "^1.0.1",
     "dayjs": "^1.11.6"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
