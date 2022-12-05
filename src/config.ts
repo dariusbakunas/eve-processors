@@ -1,7 +1,7 @@
-import convict from 'convict';
-
 import * as fs from 'fs';
 import path from 'path';
+
+import convict from 'convict';
 
 convict.addFormats({
   'required-string': {

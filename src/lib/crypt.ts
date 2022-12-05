@@ -4,7 +4,8 @@ import config from '../config';
 
 const IV_LENGTH = 16;
 const ALGORITHM = 'aes-256-ctr';
-const secret = config.get("cryptSecret");
+const secret = config.get("eve.cryptSecret");
+
 const key = crypto
   .createHash('sha256')
   .update(secret)

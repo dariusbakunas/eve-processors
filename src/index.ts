@@ -1,14 +1,13 @@
 import { createBullBoard } from "@bull-board/api";
 import { BullAdapter } from "@bull-board/api/bullAdapter";
 import { ExpressAdapter } from "@bull-board/express";
-import { Worker } from "bullmq";
 import express from 'express';
-import IORedis from 'ioredis';
 
-import config from './config';
-import { characterQueue, mainQueue } from './queues';
+import { createWorkers } from './createWorkers';
+import { characterQueue, mainQueue, QUEUES, walletTransactionsQueue } from './queues';
 import { processCharacter } from './workers/character';
 import { processAllCharacters } from './workers/main';
+import { processWalletTransactions } from './workers/walletTransactions';
 
 // const signals = {
 //   'SIGHUP': 1,
@@ -16,34 +15,33 @@ import { processAllCharacters } from './workers/main';
 //   'SIGTERM': 15
 // };
 
-const connection = new IORedis({
-  host: config.get("redis.host"),
-});
-
 const index = async () => {
+  await mainQueue.drain(true);
+  await characterQueue.drain(true);
+  await walletTransactionsQueue.drain(true);
+
   await mainQueue.add('main', {}, {
     repeat: {
-      pattern: '* * * * *',
+      pattern: '*/5 * * * *',
     },
   });
 };
 
-// main worker
-new Worker('main', processAllCharacters, {
-  connection,
-  autorun: true,
-});
-
-new Worker('character', processCharacter, {
-  connection,
-  autorun: true,
-});
+createWorkers([
+  { queueName: QUEUES.MAIN, processor: processAllCharacters },
+  { queueName: QUEUES.CHARACTER, processor: processCharacter },
+  { queueName: QUEUES.WALLET_TRANSACTIONS, processor: processWalletTransactions },
+]);
 
 const serverAdapter = new ExpressAdapter();
 serverAdapter.setBasePath('/admin/queues');
 
 createBullBoard({
-  queues: [new BullAdapter(mainQueue), new BullAdapter(characterQueue)],
+  queues: [
+    new BullAdapter(mainQueue),
+    new BullAdapter(characterQueue),
+    new BullAdapter(walletTransactionsQueue)
+  ],
   serverAdapter: serverAdapter,
 });
 
@@ -55,7 +53,7 @@ index().catch(console.error);
 
 app.listen(9000, () => {
   console.log('Running on 9000...');
-  console.log('For the UI, open http://localhost:3000/admin/queues');
+  console.log('For the UI, open http://localhost:9000/admin/queues');
   console.log('Make sure Redis is running on port 6379 by default');
 });
 

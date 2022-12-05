@@ -36,10 +36,14 @@
     "@bull-board/express": "^4.6.4",
     "@dariusbakunas/eve-db": "^1.0.7",
     "@dariusbakunas/eve-esi-client": "^3.0.0",
+    "axios": "^1.2.0",
     "bullmq": "^3.2.0",
     "convict": "^6.2.3",
     "crypto": "^1.0.1",
-    "dayjs": "^1.11.6"
+    "dayjs": "^1.11.6",
+    "pino": "^8.7.0",
+    "pino-pretty": "^9.1.1",
+    "qs": "^6.11.0"
   },
   "config": {
     "commitizen": {
